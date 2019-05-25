@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "304017227904",
+    "firebase_url": "https://mykeep-9b71b.firebaseio.com",
+    "project_id": "mykeep-9b71b",
+    "storage_bucket": "mykeep-9b71b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304017227904:android:13f2629c62afc849",
+        "android_client_info": {
+          "package_name": "com.example.mykeep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304017227904-39rollvk0ipanhmih47afluogc06tjo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mykeep",
+            "certificate_hash": "547d6738f4d376799efbbe40073a1635f99eaddd"
+          }
+        },
+        {
+          "client_id": "304017227904-1e8ttmgq18oicfa5p06rub120hsh6erb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8RGzmVrgLYy8Olkqa0quICYD0jvKByEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304017227904-1e8ttmgq18oicfa5p06rub120hsh6erb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
