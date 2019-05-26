@@ -3,7 +3,10 @@ package com.example.mykeep.models;
 public class NoteModel {
 
     public String noteTitle;
+    public String noteContent;
+    public String noteColor;
     public String noteTime;
+
 
     public NoteModel() {
 
@@ -28,5 +31,21 @@ public class NoteModel {
 
     public void setNoteTime(String noteTime) {
         this.noteTime = noteTime;
+    }
+
+    public String getNoteContent() {
+        return noteContent;
+    }
+
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
+    }
+
+    public String getNoteColor() {
+        return noteColor;
+    }
+
+    public void setNoteColor(String noteColor) {
+        this.noteColor = noteColor;
     }
 }

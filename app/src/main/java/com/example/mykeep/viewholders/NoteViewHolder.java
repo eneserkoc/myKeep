@@ -15,7 +15,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private View mView;
 
-    private TextView textTitle, textTime;
+    private TextView textTitle, textContent, textTime;
     private CardView noteCard;
 
     public NoteViewHolder(View itemView) {
@@ -24,6 +24,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         mView = itemView;
 
         textTitle = mView.findViewById(R.id.note_title);
+        textContent = mView.findViewById(R.id.note_content);
         textTime = mView.findViewById(R.id.note_time);
         noteCard = mView.findViewById(R.id.note_card);
 
@@ -35,6 +36,14 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     public void setTextTitle(TextView textTitle) {
         this.textTitle = textTitle;
+    }
+
+    public TextView getTextContent() {
+        return textContent;
+    }
+
+    public void setTextContent(TextView textContent) {
+        this.textContent = textContent;
     }
 
     public TextView getTextTime() {
@@ -56,6 +65,11 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     public void setNoteTitle(String title) {
         textTitle.setText(title);
     }
+
+    public void setNoteContent(String content) {
+        textContent.setText(content);
+    }
+
 
     public void setNoteTime(String time) {
         textTime.setText(time);

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth fAuth;
     private RecyclerView mNotesList;
-    private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager gridLayoutManager;
 
     private DatabaseReference fNotesDatabase;
     private FirebaseRecyclerAdapter<NoteModel, NoteViewHolder> firebaseRecyclerAdapter;
@@ -44,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         mNotesList = (RecyclerView) findViewById(R.id.notes_list);
 
-        gridLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+        gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        //(this, 2, StaggeredGridLayoutManager.VERTICAL, false);
+
+
 
         mNotesList.setHasFixedSize(true);
         mNotesList.setLayoutManager(gridLayoutManager);
@@ -53,13 +57,17 @@ public class MainActivity extends AppCompatActivity {
         mNotesList.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
 
         fAuth = FirebaseAuth.getInstance();
-        if (fAuth.getCurrentUser() != null) {
-            fNotesDatabase = FirebaseDatabase.getInstance().getReference().child("Notes").child(fAuth.getCurrentUser().getUid());
-        }
 
         updateUI();
 
-        loadData();
+        if (fAuth.getCurrentUser() != null) {
+            fNotesDatabase = FirebaseDatabase.getInstance().getReference().child("notes").child(fAuth.getCurrentUser().getUid());
+            loadData();
+
+
+        }
+
+
     }
 
     @Override
@@ -111,10 +119,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild("title") && dataSnapshot.hasChild("timestamp")) {
                             String title = dataSnapshot.child("title").getValue().toString();
+                            String content = dataSnapshot.child("content").getValue().toString();
                             String timestamp = dataSnapshot.child("timestamp").getValue().toString();
 
                             viewHolder.setNoteTitle(title);
-                            //viewHolder.setNoteTime(timestamp);
+                            viewHolder.setNoteContent(content);
 
                             //TimeInfo getTimeAgo = new TimeInfo();
                             viewHolder.setNoteTime(TimeInfo.getTimeAgo(Long.parseLong(timestamp), getApplicationContext()));

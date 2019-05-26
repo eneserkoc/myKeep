@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Type your title here..."
-            android:padding="10dp" />
+            android:hint="Title"
+            android:padding="10dp"
+            android:textSize="30sp"/>
 
         <View
             android:layout_width="match_parent"
@@ -39,16 +40,10 @@
             android:background="@android:color/transparent"
             android:ems="10"
             android:gravity="top"
-            android:hint="Type your description here..."
+            android:hint="Note"
             android:inputType="textMultiLine"
             android:padding="10dp" />
 
-        <Button
-            android:id="@+id/new_note_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Create Note"
-            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

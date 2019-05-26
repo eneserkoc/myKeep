@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class NoteActivity extends AppCompatActivity {
 
-    private Button btnCreate;
+    //private Button btnCreate;
     private EditText etTitle, etContent;
 
     private FirebaseAuth fAuth;
@@ -59,7 +59,7 @@ public class NoteActivity extends AppCompatActivity {
         }
 
 
-        btnCreate = (Button) findViewById(R.id.new_note_btn);
+        //btnCreate = (Button) findViewById(R.id.new_note_btn);
         etTitle = (EditText) findViewById(R.id.new_note_title);
         etContent = (EditText) findViewById(R.id.new_note_content);
 
@@ -68,9 +68,9 @@ public class NoteActivity extends AppCompatActivity {
 
 
         fAuth = FirebaseAuth.getInstance();
-        fNotesDatabase = FirebaseDatabase.getInstance().getReference().child("Notes").child(fAuth.getCurrentUser().getUid());
+        fNotesDatabase = FirebaseDatabase.getInstance().getReference().child("notes").child(fAuth.getCurrentUser().getUid());
 
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        /*btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -85,7 +85,7 @@ public class NoteActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
 
         putData();
     }
@@ -126,7 +126,7 @@ public class NoteActivity extends AppCompatActivity {
 
                 fNotesDatabase.child(noteID).updateChildren(updateMap);
 
-                Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
             } else {
                 // CREATE A NEW NOTE
                 final DatabaseReference newNoteRef = fNotesDatabase.push();
@@ -143,7 +143,7 @@ public class NoteActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(NoteActivity.this, "Note added to database", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(NoteActivity.this, "Note Saved", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(NoteActivity.this, "ERROR: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -158,7 +158,7 @@ public class NoteActivity extends AppCompatActivity {
 
 
         } else {
-            Toast.makeText(this, "USERS IS NOT SIGNED IN", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User is not signed in.", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -195,6 +195,15 @@ public class NoteActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                String title = etTitle.getText().toString().trim();
+                String content = etContent.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(content)) {
+                    createNote(title, content);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Empty Note Discarded", Toast.LENGTH_SHORT).show();
+                }
                 finish();
                 break;
             case R.id.new_note_delete_btn:

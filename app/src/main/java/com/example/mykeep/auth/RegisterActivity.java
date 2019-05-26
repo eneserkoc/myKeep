@@ -75,8 +75,14 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()){
+                            progressDialog.dismiss();
 
-                            fUsersDatabase.child(fAuth.getCurrentUser().getUid())
+                            Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(mainIntent);
+                            finish();
+                            Toast.makeText(RegisterActivity.this, "User created!", Toast.LENGTH_SHORT).show();
+
+                            /*fUsersDatabase.child(fAuth.getCurrentUser().getUid())
                                     .child("basic").child("name").setValue(name)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -97,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             }
 
                                         }
-                                    });
+                                    });*/
 
                         } else {
 
