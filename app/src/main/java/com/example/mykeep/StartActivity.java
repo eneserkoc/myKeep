@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.example.mykeep.auth.LoginActivity;
 import com.example.mykeep.auth.RegisterActivity;
+import com.example.mykeep.old.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class StartActivity extends AppCompatActivity {

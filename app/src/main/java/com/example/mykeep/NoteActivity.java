@@ -1,16 +1,14 @@
 package com.example.mykeep;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +28,7 @@ public class NoteActivity extends AppCompatActivity {
 
     //private Button btnCreate;
     private EditText etTitle, etContent;
+    private TextView etReminder;
 
     private FirebaseAuth fAuth;
     private DatabaseReference fNotesDatabase;
@@ -59,9 +58,9 @@ public class NoteActivity extends AppCompatActivity {
         }
 
 
-        //btnCreate = (Button) findViewById(R.id.new_note_btn);
         etTitle = (EditText) findViewById(R.id.new_note_title);
         etContent = (EditText) findViewById(R.id.new_note_content);
+        etReminder = findViewById(R.id.txt_note_reminder);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,23 +68,6 @@ public class NoteActivity extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         fNotesDatabase = FirebaseDatabase.getInstance().getReference().child("notes").child(fAuth.getCurrentUser().getUid());
-
-        /*btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String title = etTitle.getText().toString().trim();
-                String content = etContent.getText().toString().trim();
-
-                if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(content)) {
-                    createNote(title, content);
-                    finish();
-                } else {
-                    Snackbar.make(view, "Fill empty fields", Snackbar.LENGTH_SHORT).show();
-                }
-
-            }
-        });*/
 
         putData();
     }
@@ -99,9 +81,11 @@ public class NoteActivity extends AppCompatActivity {
                     if (dataSnapshot.hasChild("title") && dataSnapshot.hasChild("content")) {
                         String title = dataSnapshot.child("title").getValue().toString();
                         String content = dataSnapshot.child("content").getValue().toString();
+                        String reminder = dataSnapshot.child("reminder").getValue().toString();
 
                         etTitle.setText(title);
                         etContent.setText(content);
+                        etReminder.setText(reminder);
                     }
                 }
 
@@ -113,7 +97,7 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
-    private void createNote(String title, String content) {
+    private void createNote(String title, String content, String reminder, boolean isReminderSetted) {
 
         if (fAuth.getCurrentUser() != null) {
 
@@ -123,8 +107,11 @@ public class NoteActivity extends AppCompatActivity {
                 updateMap.put("title", etTitle.getText().toString().trim());
                 updateMap.put("content", etContent.getText().toString().trim());
                 updateMap.put("timestamp", ServerValue.TIMESTAMP);
+                updateMap.put("reminder", etReminder.getText().toString().trim());
+                updateMap.put("isReminderSetted", !TextUtils.isEmpty(etReminder.getText().toString()));
 
                 fNotesDatabase.child(noteID).updateChildren(updateMap);
+                Log.d("id", noteID);
 
                 Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
             } else {
@@ -135,6 +122,8 @@ public class NoteActivity extends AppCompatActivity {
                 noteMap.put("title", title);
                 noteMap.put("content", content);
                 noteMap.put("timestamp", ServerValue.TIMESTAMP);
+                noteMap.put("reminder", reminder);
+                noteMap.put("isReminderSetted", isReminderSetted);
 
                 Thread mainThread = new Thread(new Runnable() {
                     @Override
@@ -197,9 +186,9 @@ public class NoteActivity extends AppCompatActivity {
             case android.R.id.home:
                 String title = etTitle.getText().toString().trim();
                 String content = etContent.getText().toString().trim();
-
+                String reminder = etReminder.getText().toString().trim();
                 if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(content)) {
-                    createNote(title, content);
+                    createNote(title, content, reminder, !TextUtils.isEmpty(etReminder.getText().toString()));
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "Empty Note Discarded", Toast.LENGTH_SHORT).show();
@@ -212,6 +201,10 @@ public class NoteActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Nothing to delete", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.add_reminder_btn:
+
+
                 break;
         }
 

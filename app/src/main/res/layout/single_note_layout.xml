@@ -43,6 +43,15 @@
                 android:text="Note Content"
                 android:textColor="@android:color/black" />
 
+
+
+            <TextView
+                android:id="@+id/note_reminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+
+                 />
             <TextView
                 android:id="@+id/note_time"
                 android:layout_width="match_parent"

@@ -1,11 +1,10 @@
-package com.example.mykeep;
+package com.example.mykeep.old;
 
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -16,6 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mykeep.GridSpacingItemDecoration;
+import com.example.mykeep.NoteActivity;
+import com.example.mykeep.R;
+import com.example.mykeep.StartActivity;
+import com.example.mykeep.TimeInfo;
 import com.example.mykeep.models.NoteModel;
 import com.example.mykeep.viewholders.NoteViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -126,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             viewHolder.setNoteContent(content);
 
                             //TimeInfo getTimeAgo = new TimeInfo();
-                            viewHolder.setNoteTime(TimeInfo.getTimeAgo(Long.parseLong(timestamp), getApplicationContext()));
+                            viewHolder.setNoteTime(TimeInfo.getTimeAgo(Long.parseLong(timestamp)));
 
                             viewHolder.getNoteCard().setOnClickListener(new View.OnClickListener() {
                                 @Override

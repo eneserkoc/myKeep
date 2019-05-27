@@ -4,7 +4,8 @@ public class NoteModel {
 
     public String noteTitle;
     public String noteContent;
-    public String noteColor;
+    public String noteReminder;
+    public boolean isReminderSetted;
     public String noteTime;
 
 
@@ -12,8 +13,12 @@ public class NoteModel {
 
     }
 
-    public NoteModel(String noteTitle, String noteTime) {
+
+    public NoteModel(String noteTitle, String noteContent, String noteReminder, boolean isReminderSetted, String noteTime) {
         this.noteTitle = noteTitle;
+        this.noteContent = noteContent;
+        this.noteReminder = noteReminder;
+        this.isReminderSetted = isReminderSetted;
         this.noteTime = noteTime;
     }
 
@@ -41,11 +46,19 @@ public class NoteModel {
         this.noteContent = noteContent;
     }
 
-    public String getNoteColor() {
-        return noteColor;
+    public String getNoteReminder() {
+        return noteReminder;
     }
 
-    public void setNoteColor(String noteColor) {
-        this.noteColor = noteColor;
+    public void setNoteReminder(String noteReminder) {
+        this.noteReminder = noteReminder;
+    }
+
+    public boolean isReminderSetted() {
+        return isReminderSetted;
+    }
+
+    public void setReminderSetted(boolean reminderSetted) {
+        isReminderSetted = reminderSetted;
     }
 }

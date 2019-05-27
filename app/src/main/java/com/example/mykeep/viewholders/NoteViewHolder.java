@@ -1,5 +1,6 @@
 package com.example.mykeep.viewholders;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,7 +16,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
 
     private View mView;
 
-    private TextView textTitle, textContent, textTime;
+    private TextView textTitle, textContent, textTime, textReminder;
     private CardView noteCard;
 
     public NoteViewHolder(View itemView) {
@@ -26,6 +27,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         textTitle = mView.findViewById(R.id.note_title);
         textContent = mView.findViewById(R.id.note_content);
         textTime = mView.findViewById(R.id.note_time);
+        textReminder = mView.findViewById(R.id.note_reminder);
         noteCard = mView.findViewById(R.id.note_card);
 
     }
@@ -54,6 +56,14 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         this.textTime = textTime;
     }
 
+    public TextView getTextReminder() {
+        return textReminder;
+    }
+
+    public void setTextReminder(TextView textReminder) {
+        this.textReminder = textReminder;
+    }
+
     public CardView getNoteCard() {
         return noteCard;
     }
@@ -74,5 +84,10 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
     public void setNoteTime(String time) {
         textTime.setText(time);
     }
+    public void setNoteReminder(String reminder) {
+        textTime.setText(reminder);
+    }
+
+
 
 }
