@@ -3,6 +3,8 @@
     package="com.example.mykeep">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -11,26 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity"
+        <activity android:name=".ReminderActivity"></activity>
+        <activity
+            android:name=".HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".NoteActivity" />
+        <activity android:name=".auth.LoginActivity" />
+        <activity android:name=".auth.RegisterActivity" />
+        <activity android:name=".StartActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NoteActivity" />
-        <activity android:name=".auth.LoginActivity" />
-        <activity android:name=".auth.RegisterActivity" />
-        <activity android:name=".StartActivity" />
-        <activity
-            android:name=".old.MainActivity"
-            android:screenOrientation="portrait"
-            >
 
-
-        </activity>
+        <receiver android:name=".AlertReceiver" />
     </application>
 
 </manifest>

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.mykeep.auth.LoginActivity;
 import com.example.mykeep.auth.RegisterActivity;
-import com.example.mykeep.old.MainActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class StartActivity extends AppCompatActivity {
@@ -61,7 +61,7 @@ public class StartActivity extends AppCompatActivity {
     private void updateUI(){
         if (fAuth.getCurrentUser() != null){
             Log.i("StartActivity", "fAuth != null");
-            Intent startIntent = new Intent(StartActivity.this, MainActivity.class);
+            Intent startIntent = new Intent(StartActivity.this, HomeActivity.class);
             startActivity(startIntent);
             finish();
         } else {

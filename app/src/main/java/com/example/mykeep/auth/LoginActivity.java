@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.mykeep.old.MainActivity;
+
+import com.example.mykeep.HomeActivity;
 import com.example.mykeep.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent mainIntent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(mainIntent);
                             finish();
 
