@@ -1,5 +1,6 @@
 package com.example.mykeep;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
 
         View headerView1 = navigationView.getHeaderView(0);
         View headerView2 = navigationView.getHeaderView(1);
@@ -73,6 +75,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
         };
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(navigationView.getMenu().findItem(R.id.nav_notes).isChecked()){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new NotesFragment()).commit();
+        }else{
+            if(navigationView.getMenu().findItem(R.id.nav_reminders).isChecked()){
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new RemindersFragment()).commit();
+            }
+        }
+
+    }
+
+
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
