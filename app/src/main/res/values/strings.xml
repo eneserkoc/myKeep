@@ -9,6 +9,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="add_reminder_title">Add Reminder</string>
+    <string name="share_using">share</string>
 
 
 </resources>

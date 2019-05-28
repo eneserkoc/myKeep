@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "channelID";
@@ -36,10 +38,33 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification() {
-        return new NotificationCompat.Builder(getApplicationContext(), channelID)
-                .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
-                .setSmallIcon(R.drawable.ic_add_alert_black_24dp);
+    public NotificationCompat.Builder getChannelNotification(String title, String content) {
+
+        if(TextUtils.isEmpty(title)){
+
+            return new NotificationCompat.Builder(getApplicationContext(), channelID)
+                    .setContentText(content)
+                    .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(content));
+        }else{
+            if(TextUtils.isEmpty(content)){
+                return new NotificationCompat.Builder(getApplicationContext(), channelID)
+                        .setContentTitle(title)
+                        .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(content));
+            }
+            else {
+
+                return new NotificationCompat.Builder(getApplicationContext(), channelID)
+                        .setContentTitle(title)
+                        .setContentText(content)
+                        .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(content));
+            }
+        }
+
     }
 }

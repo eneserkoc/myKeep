@@ -337,9 +337,22 @@ public class NoteActivity extends AppCompatActivity {
     private void addReminder(){
 
         Intent intent = new Intent(NoteActivity.this, ReminderActivity.class);
+        intent.putExtra("reminderTitle", etTitle.getText().toString());
+        intent.putExtra("reminderContent", etContent.getText().toString());
+
+
         startActivityForResult(intent, 1);
 
 
+    }
+
+    private void shareNote(){
+        String shareBody = "\""+etTitle.getText().toString()+"\" - "+ etContent.getText().toString();
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
     }
 
     @Override
@@ -377,6 +390,11 @@ public class NoteActivity extends AppCompatActivity {
                 addReminder();
 
                 break;
+            case R.id.share_btn:
+                shareNote();
+
+                break;
+
         }
 
         return true;

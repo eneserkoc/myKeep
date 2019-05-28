@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,10 +35,16 @@ public class ReminderActivity extends AppCompatActivity implements TimePickerDia
     LinearLayout dateLayout, timeLayout;
     Calendar c;
 
+    String reminderTitle, reminderContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        Bundle extras = getIntent().getExtras();
+        reminderTitle = extras.getString("reminderTitle");
+        reminderContent = extras.getString("reminderContent");
+
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,7 +127,10 @@ public class ReminderActivity extends AppCompatActivity implements TimePickerDia
     private void startAlarm(Calendar c) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        intent.putExtra("reminderTitle", reminderTitle);
+        intent.putExtra("reminderContent", reminderContent);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
